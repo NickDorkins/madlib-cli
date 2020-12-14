@@ -1,19 +1,53 @@
-# TODO Print a welcome message to the user, explaining the Madlib process and command line interactions
+import re 
 
-# TODO Read a template Madlib file (Example), and parse that file into usable parts.
+print('*'*40)
+print ('**' + ' '*9 + 'Welcome to MadLibs' + ' '*9 + '**')
+print ('**' +' '*36 +  '**')
+print ('**' + '  ' + 'Please fill in the template and   ' + '**')
+print ('**' + '  ' + 'read the magical adventure that' + '   ' + '**')
+print ('**' + '  ' + 'follows.' + ' '*26 +  '**')
+print ('**' +' '*36 +  '**')
+print('*'*40)
 
-# TODO Once you know what parts of the template need user input, such as Adjective, prompt the user to submit a series of words to fit each of the required components of the Madlib template.
 
-# TODO With the collected user inputs, populate the template such that each provided input is placed into the correct position within the template.
 
-# TODO After the resulting Madlib has been completed, provide the completed response back to the user in the command line.
+def read_template(path):
+      
+    try:
+        with open(path, 'r') as path_string:
+            contents = path_string.read()
+            returned_string = str(contents)
+            print(returned_string)
+            return(returned_string)
+    except FileNotFoundError:
+        raise FileNotFoundError('File not found')
+        
 
-# TODO Write the completed text (Example)to a new file on your file system (in the repo).
+def parse_template(string):
+    # [{]w\[}] 
+    #s[s.find("{")+1:s.find("}")]
+    # language_parts = []
+    # parse = str.split('Adjective', 'Noun')
+    #  list --> remove curly --> tuple
+    # for i in parse:
+    # string_edit = parse.remove("'", "", *)
+    # while { in parse: parse.remove({)
+    parse = re.findall(r'\{.*?\}', string)
+    final_list = []
+    for i in parse:
+        string_edit = (i[1:-1])
+        final_list.append(string_edit)
+    correct_list = tuple(final_list)
+    print("CORRECT_LIST", correct_list)
+    template = re.sub(r'\{.*?\}', "{}", string)
+    print("TEMPLATE", template)
+    return(template, correct_list)
+    
+    # template = string.remove
+    # iterate through for loop
+    # Remove first and last elements per iteration
+    # return string without culy brackets 
+    # print(string_edit)
 
-# TODO Create and test a read_template function that takes in a path to text file and returns a stripped string of the file’s contents.
 
-# TODO read_template should raise a FileNotFoundError if path is invalid.
-
-# TODO Create and test a parse_template function that takes in a template string and returns a string with language parts removed and a separate list of those language parts.
-
-# TODO Create and test a merge function that takes in a “bare” template and a list of user entered language parts, and returns a string with the language parts inserted into the template.
+parse_template("It was a {Adjective} and {Adjective} {Noun}.")
