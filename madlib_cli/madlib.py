@@ -12,7 +12,14 @@ print('*'*40)
 
 
 def read_template(path):
-      
+    """[Passed a file path, read file and return the contents as a string, raise FileNotFoundError if file path is incorrect.]
+
+    Args:
+        path ([open]): [Read file path, return the contents of the file as a single string. ]
+
+    Raises:
+        FileNotFoundError: [Raise error if the file path is incorrect.]
+    """      
     try:
         with open(path, 'r') as path_string:
             contents = path_string.read()
@@ -24,14 +31,11 @@ def read_template(path):
         
 
 def parse_template(string):
-    # [{]w\[}] 
-    #s[s.find("{")+1:s.find("}")]
-    # language_parts = []
-    # parse = str.split('Adjective', 'Noun')
-    #  list --> remove curly --> tuple
-    # for i in parse:
-    # string_edit = parse.remove("'", "", *)
-    # while { in parse: parse.remove({)
+    """[Takes in a string, returns two separate values. Returns a a string with language parts removed and a list of the removed language parts. ]
+
+    Args:
+        string ([string]): [String value with language parts in curly brackets. ]
+    """    
     parse = re.findall(r'\{.*?\}', string)
     final_list = []
     for i in parse:
@@ -42,12 +46,5 @@ def parse_template(string):
     template = re.sub(r'\{.*?\}', "{}", string)
     print("TEMPLATE", template)
     return(template, correct_list)
-    
-    # template = string.remove
-    # iterate through for loop
-    # Remove first and last elements per iteration
-    # return string without culy brackets 
-    # print(string_edit)
 
 
-parse_template("It was a {Adjective} and {Adjective} {Noun}.")
